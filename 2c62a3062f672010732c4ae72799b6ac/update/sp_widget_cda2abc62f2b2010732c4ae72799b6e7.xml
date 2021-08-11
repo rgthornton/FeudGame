@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($rootScope, $scope, spUtil) {
+	var c = this;
+	c.isGameHost = c.data.isGameHost;
+	c.user = c.data.user;
+	c.isFaceOff = true;
+
+	var questions = Object.keys(feudJSON);
+	var answers = Object.values(feudJSON);
+	var question_index = 0;
+
+	// set initial scores
+	$('#fn-scorebox-round-score').text(0);
+	$('#fn-scorebox-team-one').text(0);
+	$('#fn-scorebox-team-two').text(0);		
+
+	// handle question modal events
+	$('.modal-header').on('mousedown', function(mousedownEvt) {
+		var $draggable = $(this);
+		var x = mousedownEvt.pageX - $draggable.offset().left,
+				y = mousedownEvt.pageY - $draggable.offset().top;
+
+		$('body').on('mousemove.draggable', function(mousemoveEvt) {
+			$draggable.closest(".modal-dialog").offset({
+				"left": mousemoveEvt.pageX - x,
+				"top": mousemoveEvt.pageY - y
+			});
+		});
+
+		$('body').on('mouseup', function() {
+			$('body').off('mousemove.draggable');
+		});
+
+		$draggable.closest('.modal').one('bs.modal.hide', function() {
+			$('body').off('mousemove.draggable');
+		});
+	});
+
+
+	// ********************************************************************** //
+	// listen for changes to the table 
+	var filter = 'active=true^sys_id=' + c.data.game_id;
+	spUtil.recordWatch($scope, "x_159204_feudnow_game", filter, function(name) {
+		console.log(name);
+
+		// listen for new question by watching question_index
+		if (name.data.record.question_index) {
+			// get the question and answers for it
+			question_index = name.data.record.question_index.value;
+			var answers_length = name.data.record.answers_length.value;
+
+			// clear and show the numbers on the answer blocks
+			for (var i=1; i<=10; i++) {
+				if (i <= answers_length)
+					$('#a' + i).val(i);
+				else
+					$('#a' + i).val('');
+
+				$('#p' + i).val('');
+			}				
+
+			// show the face-off button
+			$('#faceoff_button').show();		
+		}		
+
+		// listen for updates to answer board
+		if (name.data.record.current_answer_index) {
+			var answer_index = parseInt(name.data.record.current_answer_index.value);
+
+			var ans_element = '#a' + (answer_index + 1);
+			var pnt_element = '#p' + (answer_index + 1);
+			var answer_text = answers[question_index][answer_index][0];
+			var answer_points = answers[question_index][answer_index][1];					
+
+			$(ans_element).val(answer_text);
+			$(pnt_element).val(answer_points);					
+
+			// update the round scorebox
+			$('#fn-scorebox-round-score').text(name.data.record.round_score.value);
+		}		
+
+		// listen for wrong answer
+		if (name.data.changes[0] == 'wrong_answer_count') {
+			var count = parseInt(name.data.record.wrong_answer_count.value);
+
+			if (count) {
+				if (count == 1) {
+					$('#x1').show();
+					$('#x2, #x3').hide();
+				}
+
+				if (count == 2) {
+					$('#x1, #x2').show();
+					$('#x3').hide();
+				}
+
+				if (count == 3) {
+					$('#x1, #x2, #x3').show();
+
+					// show the big green buttons for host
+					$('.big-button.green').css('visibility', 'visible');
+				}			
+
+				$('.big-x-container').show().delay(1000).fadeOut();					
+			}
+		}				
+
+
+		$scope.server.refresh();
+
+	});	
+
+	// ********************************************************************** //
+	// open the question card for the host
+	c.openQuestion = function(element) {
+
+		$('.big-button.green').css('visibility', 'hidden');
+
+		question_index = Math.floor(Math.random() * questions.length);	
+		c.question = questions[question_index].replaceAll('&x22;', '');
+		c.answers_length = answers[question_index].length;
+		c.answer_counter = c.answers_length;
+
+		// remove this question from the list so we don't ask it again
+		questions.splice(question_index, -1);
+
+		// some of the questions have more than 10 answers so we need to truncate the rest
+		c.answers_list = (c.answers_length > 10) ? answers[question_index].slice(0,9) : answers[question_index];
+
+		$('.modal').modal({ backdrop: false, show: true });
+
+		// update the question
+		c.server.get({
+			action: 'new_question',
+			questionIndex: question_index,
+			answersLength: c.answers_list.length
+		});
+
+	};	
+
+	// ********************************************************************** //
+	// award points to the winner of the process
+	c.awardPoints = function(team_number) {
+		c.server.get({ 
+			action: 'updateTeamPoints',
+			team: team_number
+		}).then(function() {
+			//$('#question_card').hide();
+		});
+	}
+
+	// ********************************************************************** //
+	// face-off click
+	c.handleFaceOff = function() {
+		$('#faceoff_button').addClass('button-in');
+
+		c.server.get({ action: 'handleFaceOff'}).then(function() {
+			$('#faceoff_button').removeClass('button-in');
+			$('#faceoff_button').hide();
+		});
+	}	
+
+	// ********************************************************************** //
+	// show big X
+	c.strike = function() {
+		// update count of wrong answers
+		c.server.get({ action: 'updateWrongAnswerCount'	});
+	}
+
+	// ********************************************************************** //
+	// display the answer
+	c.revealAnswer = function(index) {
+		var selected_answer_index = index;
+		var selected_answer_points = answers[question_index][selected_answer_index][1];	
+
+		// update the score for the round
+		c.server.get({
+			action: 'updateRoundScore',
+			answerIndex: selected_answer_index,
+			points: selected_answer_points
+		}).then(function() {
+			// remove the selected answer from the answer list
+			$('#answ' + index).hide();
+
+			// if all questions are answered show the big green buttons
+			if (--c.answer_counter < 1) {
+				// show the big green buttons for host
+				$('.big-button.green').css('visibility', 'visible');				
+			}
+		});
+
+	}
+
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}	
+
+body {
+  background-color: #fff;  
+}
+
+a {
+  cursor: pointer;  
+}
+
+.grid-container {  
+  display: grid;
+  grid-column-gap: 5px;
+  grid-template-columns: auto;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.grid-item {
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.gameboard {
+  min-height: 400px;
+  padding: 10px 10px;
+  border: #111 solid;
+  border-width: 14px 10px;
+  background-color: #0642a3;;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.column {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}
+
+.item {
+  margin: 8px 0;   
+}
+
+.gameboard input {
+  border: none;
+  font-size: 30px;
+  color: #f2f2f2;
+  padding: 2px 8px;
+  margin: 0x;
+  background-color: #111;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+}
+
+.gameboard .item input:nth-child(1) {
+  width: 80%;
+}
+.gameboard .item input:nth-child(2) {
+  width: 15%;
+}
+
+.host-grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+.host-grid-container-buttons {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+.player-grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;  
+}
+
+.big-button {
+  padding: 25px;
+  text-align: center;
+  color: white;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid #000;
+}
+
+.big-button.red {
+  background-color: red; 
+  font-size: 30px;
+}
+
+.big-button.green {
+  visibility: hidden;
+  background-color: green;
+}
+
+.big-button:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.face-off-button {
+  display: none;
+  padding: 25px;
+  text-align: center;
+  color: white;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid #000;
+  background-color: red;
+}
+
+.face-off-button.button-in {
+  border: 6px solid #000;
+}
+
+#new-question-button {
+  grid-column: 2;
+  grid-row: 2; 
+  justify-content: space-evenly;
+}
+
+.total input {
+  width: 50%;
+  margin-right: 5%;
+  float: right;
+}
+
+.answer {
+  text-align: center; 
+}
+
+.big-x-container {
+  display: none;
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  text-align: center;
+}
+
+.lightbar {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  display: grid;
+  grid-gap: 40px;
+  grid-auto-flow: column;
+}
+
+.lights {
+  width: 10px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  padding: 10px;
+  animation: glowing 900ms infinite;
+}
+
+@keyframes glowing {
+  0% {
+    background-color: #eee;
+    box-shadow: 0 0 5px #fff;
+  }
+  50% {
+    background-color: #eee;
+    box-shadow: 0 0 15px #eee;
+  }
+  100% {
+    background-color: #eee;
+    box-shadow: 0 0 5px #fff;
+  }
+}
+
+.big-x {
+  text-align: center;
+  font-size: 150px;
+  color: red;
+  border: 15px solid red;
+}
+
+#question_card {
+  position: relative;
+  top: -200px;
+  left: -300px;
+}
+
+.modal-header:hover {
+  cursor: move; 
+}
+
+.modal-dialog {
+  position: fixed;
+  margin: 0;
+  padding: 10px;
+}
+
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>feudnow</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>FeudNow</name>
+        <option_schema>[{"displayValue":"User","name":"game_host","section":"Presentation","label":"Game host","type":"reference","value":"sys_user","ed":{"reference":"sys_user"}}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+	var game_id = $sp.getParameter('game_id');
+	data.game_id = game_id;
+	data.isGameHost = isGameHost(gs.getUserID());
+	data.user = gs.getUserID();	
+
+	// is this a client request
+	if (input) {
+		var gr = new GlideRecord('x_159204_feudnow_game');
+		gr.get(game_id);	
+
+		// updates triggered from the New Question button being pushed
+		if (input.action == 'new_question') {
+			gr.setValue('question_index', input.questionIndex);
+			gr.setValue('answers_length', input.answersLength);
+			gr.setValue('wrong_answer_count', 0);
+			gr.setValue('round_score', 0);
+			gr.update();
+		}
+
+		if (input.action == 'updateRoundScore') {					
+			var score = gr.round_score + input.points;
+
+			gr.setValue('current_answer_index', input.answerIndex);
+			gr.setValue('current_answer_points', input.points);
+			gr.setValue('round_score', score);
+			gr.update();
+		}			
+
+		/*
+		if (input.action == 'updateUsedQuestionIndexes') {
+			var used_question_indexes = gr.used_question_indexes + input.questionIndex + ', ';
+			gr.setValue('used_question_indexes', used_question_indexes);
+			gr.update();
+		}
+		*/
+
+		if (input.action == 'handleFaceOff') {
+			if (!gr.face_off_winner) {
+				gr.setValue(face_off_winner, gs.getUserID());
+				gr.update();
+			}
+		}
+
+		if (input.action == 'updateWrongAnswerCount') {
+			var count = gr.wrong_answer_count;
+			if (count == 3) 
+				count = 0;
+
+			count++;
+
+			gr.setValue('wrong_answer_count', count);
+			gr.update();
+		}
+
+		if (input.action == 'updateTeamPoints') {
+			gr[input.team] += gr.round_score;
+			gr.setValue('round_score', 0);
+			gr.update();
+		}
+
+	}	
+
+	function isGameHost(user) {
+		var gr = new GlideRecord('x_159204_feudnow_game');
+		gr.get(game_id);	
+
+		if (gr.host == user) {
+			return true;
+		}
+
+		return false;		
+	}
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>rpoore_admin</sys_created_by>
+        <sys_created_on>2021-04-18 00:38:34</sys_created_on>
+        <sys_id>cda2abc62f2b2010732c4ae72799b6e7</sys_id>
+        <sys_mod_count>967</sys_mod_count>
+        <sys_name>FeudNow</sys_name>
+        <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+        <sys_update_name>sp_widget_cda2abc62f2b2010732c4ae72799b6e7</sys_update_name>
+        <sys_updated_by>rpoore_admin</sys_updated_by>
+        <sys_updated_on>2021-08-01 21:39:58</sys_updated_on>
+        <template><![CDATA[<div class="grid-container">
+
+  <div class="grid-item">
+
+    <div class="grid-item">
+      <div class="gameboard">
+
+        <div class="left column">
+
+          <div class="item">  
+            <input id="a1" class="answer" readonly />
+            <input id="p1" readonly />
+          </div>
+          <div class="item">
+            <input id="a2" class="answer" readonly />
+            <input id="p2" readonly />
+          </div>         
+          <div class="item">
+            <input id="a3" class="answer" readonly />
+            <input id="p3" readonly />
+          </div>          
+          <div class="item">
+            <input id="a4" class="answer" readonly />
+            <input id="p4" readonly />
+          </div> 
+          <div class="item">
+            <input id="a5" class="answer" readonly />
+            <input id="p5" readonly />
+          </div>            
+        </div>
+
+        <div class="right column"> 
+          <div class="item">
+            <input id="a6" class="answer" readonly />
+            <input id="p6" readonly />
+          </div>
+          <div class="item">
+            <input id="a7" class="answer" readonly />
+            <input id="p7" readonly />
+          </div>
+          <div class="item">
+            <input id="a8" class="answer" readonly />
+            <input id="p8" readonly />
+          </div>
+          <div class="item">
+            <input id="a9" class="answer" readonly />
+            <input id="p9" readonly />
+          </div> 
+          <div class="item">
+            <input id="a10" class="answer" readonly />
+            <input id="p10" readonly />
+          </div>         
+        </div>   
+
+        <div class="lightbar">
+          <div class="lights"></div>
+          <div class="lights"></div>
+          <div class="lights"></div>
+          <div class="lights"></div>
+          <div class="lights"></div>
+          <div class="lights"></div>
+          <div class="lights"></div>
+          <div class="lights"></div>  
+        </div>
+           
+      </div> 
+    </div>    
+  </div>
+</div> 
+
+
+<!-- host view -->
+<div class="host-grid-container" ng-show="c.isGameHost">
+  <div id="new-question-button">
+    <button ng-click="c.openQuestion()" class="btn btn-default">
+      New Question
+    </button>   
+  </div>
+</div>
+
+<!-- Question card (host view)-->
+<div id="question_card" class="modal fade" role="dialog" ng-show="c.isGameHost">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4>{{c.question}}</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li ng-repeat="answer in c.answers_list" id="{{'answ' + $index}}">
+            <a ng-click="c.revealAnswer($index)">{{answer[0]}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="host-grid-container-buttons">
+        <div class="big-button green" data-dismiss="modal" ng-click="c.awardPoints('team_one_score')">Team One</div>
+        <div class="big-button red" ng-click="c.strike()">X</div>
+        <div class="big-button green" data-dismiss="modal" ng-click="c.awardPoints('team_two_score')">Team Two</div>
+      </div>      
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- player view -->
+<div class="player-grid-container" ng-show="!c.isGameHost && c.isFaceOff">
+  <div></div>
+  <div id="faceoff_button" class="face-off-button" ng-click="c.handleFaceOff()">Face Off</div>
+</div>
+
+
+
+<!-- big X -->
+<div class="big-x-container">
+  <span id="x1" class="big-x"><b>&nbsp;X&nbsp;</b></span>
+  <span id="x2" class="big-x"><b>&nbsp;X&nbsp;</b></span>
+  <span id="x3" class="big-x"><b>&nbsp;X&nbsp;</b></span>
+</div>
+
+
+]]></template>
+    </sp_widget>
+</record_update>

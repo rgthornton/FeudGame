@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="avatar" label="Avatar" language="en" table="x_159204_feudnow_players">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>avatar</element>
+            <help/>
+            <hint/>
+            <label>Avatar</label>
+            <language>en</language>
+            <name>x_159204_feudnow_players</name>
+            <plural>Avatars</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-07-05 15:54:52</sys_created_on>
+            <sys_id>cc60acaf2f413010732c4ae72799b6b6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Avatar</sys_name>
+            <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+            <sys_update_name>sys_documentation_x_159204_feudnow_players_avatar_en</sys_update_name>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-07-05 15:54:52</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

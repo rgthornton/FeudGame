@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="face_off_winner" label="Face-off winner" language="en" table="x_159204_feudnow_game">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>face_off_winner</element>
+            <help/>
+            <hint/>
+            <label>Face-off winner</label>
+            <language>en</language>
+            <name>x_159204_feudnow_game</name>
+            <plural>Face-off winners</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-06-27 21:21:43</sys_created_on>
+            <sys_id>ed7e90492f053010732c4ae72799b66f</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>Face-off winner</sys_name>
+            <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+            <sys_update_name>sys_documentation_x_159204_feudnow_game_face_off_winner_en</sys_update_name>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-06-27 21:30:03</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

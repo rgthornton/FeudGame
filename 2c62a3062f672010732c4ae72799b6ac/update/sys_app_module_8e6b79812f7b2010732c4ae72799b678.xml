@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module">
+    <sys_app_module action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <application display_value="FeudNow">7bfe83842f332010732c4ae72799b672</application>
+        <assessment/>
+        <device_type/>
+        <filter/>
+        <hint/>
+        <homepage/>
+        <image/>
+        <link_type>LIST</link_type>
+        <map_page/>
+        <mobile_title>Games</mobile_title>
+        <mobile_view_name>Mobile</mobile_view_name>
+        <name>x_159204_feudnow_game</name>
+        <order/>
+        <override_menu_roles>false</override_menu_roles>
+        <query/>
+        <report/>
+        <roles>x_159204_feudnow.game_user,x_159204_feudnow.player,x_159204_feudnow.host</roles>
+        <sys_class_name>sys_app_module</sys_class_name>
+        <sys_created_by>rpoore_admin</sys_created_by>
+        <sys_created_on>2021-04-27 00:49:19</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>8e6b79812f7b2010732c4ae72799b678</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Games</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+        <sys_update_name>sys_app_module_8e6b79812f7b2010732c4ae72799b678</sys_update_name>
+        <sys_updated_by>rpoore_admin</sys_updated_by>
+        <sys_updated_on>2021-05-12 01:19:47</sys_updated_on>
+        <timeline_page/>
+        <title>Games</title>
+        <uncancelable>false</uncancelable>
+        <view_name/>
+        <window_name/>
+    </sys_app_module>
+</record_update>

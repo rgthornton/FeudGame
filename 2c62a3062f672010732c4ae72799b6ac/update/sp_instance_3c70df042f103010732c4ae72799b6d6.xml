@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">47009b042f103010732c4ae72799b610</sp_column>
+        <sp_widget display_value="fn-scorebox">e2043f032f483010732c4ae72799b678</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>rpoore_admin</sys_created_by>
+        <sys_created_on>2021-05-19 00:58:21</sys_created_on>
+        <sys_id>3c70df042f103010732c4ae72799b6d6</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>Score</sys_name>
+        <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+        <sys_update_name>sp_instance_3c70df042f103010732c4ae72799b6d6</sys_update_name>
+        <sys_updated_by>rpoore_admin</sys_updated_by>
+        <sys_updated_on>2021-06-06 18:40:11</sys_updated_on>
+        <title>Score</title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"title": {
+		"value": "Score",
+		"displayValue": "Score"
+	},
+	"team": {
+		"value": 0,
+		"displayValue": "0"
+	},
+	"score": {
+		"value": 0,
+		"displayValue": "0"
+	},
+	"widgetid": {
+		"value": "fn-scorebox-round-score",
+		"displayValue": "fn-scorebox-round-score"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="delete_multiple" query="documentkey=3c70df042f103010732c4ae72799b6d6"/>
+</record_update>

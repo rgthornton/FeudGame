@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function($rootScope, $scope, spUtil) {
+	var c = this;
+
+	// ********************************************************************** //
+	// listen for changes to the table
+	var filter = 'active=true^sys_id=' + c.data.game_id;
+	spUtil.recordWatch($rootScope, "x_159204_feudnow_game", filter, function(name) {	
+		console.log(name);
+
+		if (name.data.operation == 'update') {
+
+			// listen for new question and reset the round score
+			if (name.data.record.question_index) {
+				$('#fn-scorebox-round-score').text(0);
+			}		
+						
+			// listen for score updates
+			if (name.data.record.round_score) {
+				$('#fn-scorebox-round-score').text(name.data.record.round_score.value);
+			}			
+
+			if (name.data.changes.includes('team_one_score')) {
+				$('#fn-scorebox-team-one').text(name.data.record.team_one_score.value);
+			}
+
+			if (name.data.changes.includes('team_two_score')) {
+				$('#fn-scorebox-team-two').text(name.data.record.team_two_score.value);
+			}		
+			
+		}
+	});		
+
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.scorebox {
+  width: 100%;
+  height: 100%;
+}
+
+.scorebox-header {
+  text-align: center; 
+  font-size: 2.5em;
+}
+
+.scorebox-score {
+  text-align: center; 
+  font-size: 2.5em;
+}
+
+.active-team {
+  border-top: 3px solid green; 
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>fn-scorebox</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>fn-scorebox</name>
+        <option_schema>[{"name":"title","section":"other","label":"Title","type":"string"},{"name":"team","section":"other","label":"Team","type":"integer"},{"name":"widgetid","section":"other","label":"widgetID","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.game_id = $sp.getParameter('game_id');
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>rpoore_admin</sys_created_by>
+        <sys_created_on>2021-05-16 00:59:55</sys_created_on>
+        <sys_id>e2043f032f483010732c4ae72799b678</sys_id>
+        <sys_mod_count>129</sys_mod_count>
+        <sys_name>fn-scorebox</sys_name>
+        <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+        <sys_update_name>sp_widget_e2043f032f483010732c4ae72799b678</sys_update_name>
+        <sys_updated_by>rpoore_admin</sys_updated_by>
+        <sys_updated_on>2021-07-17 23:38:33</sys_updated_on>
+        <template><![CDATA[<div>
+  
+  <div class="scorebox">
+    <div class="scorebox-header">
+			{{c.options.title}}
+    </div>
+    
+    <div id="{{c.options.widgetid}}" class="scorebox-score"></div>
+    
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

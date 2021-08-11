@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Players" max_length="40" name="x_159204_feudnow_players" type="collection">
+        <element attributes="edge_encryption_enabled=true" default="true" label="Active" max_length="40" name="active" type="boolean"/>
+        <element label="Avatar" max_length="40" name="avatar" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Game" max_length="40" name="game" reference="x_159204_feudnow_game" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" display="true" label="Player" max_length="40" name="player" reference="sys_user" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Team" max_length="40" name="team" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Team One" value="team_one"/>
+                <element inactive_on_update="false" label="Team Two" value="team_two"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="game"/>
+        </index>
+        <index name="index2">
+            <element name="player"/>
+        </index>
+    </element>
+</database>

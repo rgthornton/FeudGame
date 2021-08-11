@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="" section_id="a27082092f7b2010732c4ae72799b663" sys_domain="global" table="x_159204_feudnow_game" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>number</element>
+            <position>0</position>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-07-10 23:39:37</sys_created_on>
+            <sys_id>98bab3cd2f513010732c4ae72799b612</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_159204_feudnow_game" sys_domain="global" view="Default view">a27082092f7b2010732c4ae72799b663</sys_ui_section>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-07-10 23:39:37</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>host</element>
+            <position>1</position>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-07-10 23:39:37</sys_created_on>
+            <sys_id>10bab3cd2f513010732c4ae72799b613</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_159204_feudnow_game" sys_domain="global" view="Default view">a27082092f7b2010732c4ae72799b663</sys_ui_section>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-07-10 23:39:37</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>2</position>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-07-10 23:39:37</sys_created_on>
+            <sys_id>94bab3cd2f513010732c4ae72799b613</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_159204_feudnow_game" sys_domain="global" view="Default view">a27082092f7b2010732c4ae72799b663</sys_ui_section>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-07-10 23:39:37</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>active</element>
+            <position>3</position>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-07-10 23:39:37</sys_created_on>
+            <sys_id>1cbab3cd2f513010732c4ae72799b613</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_159204_feudnow_game" sys_domain="global" view="Default view">a27082092f7b2010732c4ae72799b663</sys_ui_section>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-07-10 23:39:37</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>sys_created_on</element>
+            <position>4</position>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-07-10 23:39:37</sys_created_on>
+            <sys_id>90bab3cd2f513010732c4ae72799b614</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_159204_feudnow_game" sys_domain="global" view="Default view">a27082092f7b2010732c4ae72799b663</sys_ui_section>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-07-10 23:39:37</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>sys_created_by</element>
+            <position>5</position>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-07-10 23:39:37</sys_created_on>
+            <sys_id>18bab3cd2f513010732c4ae72799b614</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_159204_feudnow_game" sys_domain="global" view="Default view">a27082092f7b2010732c4ae72799b663</sys_ui_section>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-07-10 23:39:37</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption/>
+            <header>false</header>
+            <name>x_159204_feudnow_game</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>rpoore_admin</sys_created_by>
+            <sys_created_on>2021-04-27 01:11:28</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>a27082092f7b2010732c4ae72799b663</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_159204_feudnow_game</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+            <sys_update_name>sys_ui_section_a27082092f7b2010732c4ae72799b663</sys_update_name>
+            <sys_updated_by>rpoore_admin</sys_updated_by>
+            <sys_updated_on>2021-04-27 01:11:28</sys_updated_on>
+            <sys_user/>
+            <title>true</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

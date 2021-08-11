@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script/>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_159204_feudnow_FeudNow.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}	
+	
+.gameboard {
+  width: 900px;
+  height: 500px;
+  padding: 20px 20px;
+  border: #111 solid;
+  border-width: 14px 10px;
+  background-color: #0642a3;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.column {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}
+
+.item {
+  margin: 8px 0;  
+}
+
+.gameboard input {
+  border: none;
+  font-size: 30px;
+  color: #f2f2f2;
+  padding: 2px 8px;
+  margin: 0x;
+  background-color: #111;
+  border-radius: 2px;
+}
+
+.gameboard .item input:nth-child(1) {
+  width: 52%;
+}
+.gameboard .item input:nth-child(2) {
+  width: 30%;
+}
+
+
+.total input {
+  width: 50%;
+  margin-right: 5%;
+  float: right;
+}
+
+.x {
+  position: absolute;
+  left: 24%;
+  width: 10%;
+  text-align: center;
+  font-family: Impact;
+  font-size: 200px;
+  color: red;
+  border: 30px solid red;
+  display: none;
+}	
+</style>
+
+<div class="gameboard">
+  <div class="x">X</div>
+  <div class="left column">
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="item">
+       <input />
+       <input />
+    </div>
+  </div>
+  <div class="right column"> 
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="item">
+       <input />
+       <input />
+    </div>
+    <div class="total">
+       <input value="TOTAL  "/>
+    </div>
+  </div>
+</div>	
+
+</j:jelly>]]></html>
+        <name>FeudNow</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>rpoore_admin</sys_created_by>
+        <sys_created_on>2021-04-23 01:09:31</sys_created_on>
+        <sys_id>e8991d3f2f232010732c4ae72799b6e0</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>FeudNow</sys_name>
+        <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+        <sys_update_name>sys_ui_page_e8991d3f2f232010732c4ae72799b6e0</sys_update_name>
+        <sys_updated_by>rpoore_admin</sys_updated_by>
+        <sys_updated_on>2021-04-23 01:35:40</sys_updated_on>
+    </sys_ui_page>
+</record_update>

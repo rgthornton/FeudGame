@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Game" max_length="40" name="x_159204_feudnow_game" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Active" max_length="40" name="active" type="boolean"/>
+        <element attributes="edge_encryption_enabled=true" label="Answers length" max_length="40" name="answers_length" type="integer"/>
+        <element label="Current Answer" max_length="50" name="current_answer" type="string"/>
+        <element label="Current Answer ID" max_length="10" name="current_answer_id" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Current Answer Index" max_length="40" name="current_answer_index" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" default="0" label="Current Answer Points" max_length="40" name="current_answer_points" type="integer"/>
+        <element label="Current Question" max_length="256" name="current_question" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Current Round" max_length="40" name="current_round" type="integer"/>
+        <element label="Current team" max_length="40" name="current_team" type="string"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Face-off winner" max_length="40" name="face_off_winner" reference="sys_user" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Host" max_length="32" name="host" reference="sys_user" reference_qual="active=true^EQ" reference_qual_condition="active=true^EQ" type="reference"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Question index" max_length="40" name="question_index" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" default="0" label="Round Score" max_length="40" name="round_score" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" default="0" label="Team One Score" max_length="40" name="team_one_score" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" default="0" label="Team Two Score" max_length="40" name="team_two_score" type="integer"/>
+        <element label="Used question indexes" max_length="2048" name="used_question_indexes" type="string"/>
+        <element attributes="edge_encryption_enabled=true" default="0" label="Wrong answer count" max_length="40" name="wrong_answer_count" type="integer"/>
+        <index name="index">
+            <element name="face_off_winner"/>
+        </index>
+        <index name="index2">
+            <element name="host"/>
+        </index>
+    </element>
+</database>

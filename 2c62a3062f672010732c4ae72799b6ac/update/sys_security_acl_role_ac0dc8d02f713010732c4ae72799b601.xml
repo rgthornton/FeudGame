@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>rpoore_admin</sys_created_by>
+        <sys_created_on>2021-08-01 18:57:58</sys_created_on>
+        <sys_id>ac0dc8d02f713010732c4ae72799b601</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_159204_feudnow_game.x_159204_feudnow.host</sys_name>
+        <sys_package display_value="FeudNow" source="x_159204_feudnow">2c62a3062f672010732c4ae72799b6ac</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="FeudNow">2c62a3062f672010732c4ae72799b6ac</sys_scope>
+        <sys_security_acl display_value="x_159204_feudnow_game">1e6b79812f7b2010732c4ae72799b688</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_ac0dc8d02f713010732c4ae72799b601</sys_update_name>
+        <sys_updated_by>rpoore_admin</sys_updated_by>
+        <sys_updated_on>2021-08-01 18:57:58</sys_updated_on>
+        <sys_user_role display_value="x_159204_feudnow.host" name="x_159204_feudnow.host">f4e5f6ab2f332010732c4ae72799b614</sys_user_role>
+        <transaction_id/>
+    </sys_security_acl_role>
+</record_update>
